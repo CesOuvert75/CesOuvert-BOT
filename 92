@@ -30,7 +30,8 @@ await update.message.reply_text(WELCOME_TEXT, reply_markup=reply_markup)
 
 if __name__ == '__main__':
 # Récupère le token de façon sécurisée via les variables d'environnement de votre hébergeur
-TOKEN = os.getenv("8654399942:AAFzASPJY89aV4VoLCQqON9TyIH248VNL9s")
+TOKEN = os.getenv("
+")
 
 app = Application.builder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))

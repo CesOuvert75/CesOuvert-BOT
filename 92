@@ -1,0 +1,39 @@
+import os
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
+
+# Le message de bienvenue de votre image
+WELCOME_TEXT = (
+"👋 Ravi de vous revoir, CALIWEED 75 !\n\n"
+"Vous êtes déjà membre du La Frappe IDF.\n"
+"🚨 Le paiement s'effectue en : 💵 Espèces !!"
+)
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+# Création du menu vertical
+keyboard = [
+[InlineKeyboardButton("➡️ REPRENDRE MON PANIER", callback_data="panier")],
+[InlineKeyboardButton("🛒 Catalogue Produits", callback_data="catalogue")],
+[InlineKeyboardButton("📦 Mes Commandes", callback_data="commandes")],
+[InlineKeyboardButton("⭐ Laisser un avis", callback_data="avis")],
+[InlineKeyboardButton("👥 Consulter les avis", callback_data="voir_avis")],
+[InlineKeyboardButton("☎️ Contact", callback_data="contact")],
+[InlineKeyboardButton("📢 Lien Canal Telegram", url="https://t.me/CaliCaliweed_bot")], # Remplacez par votre lien
+[InlineKeyboardButton("🏠 Message d'accueil", callback_data="accueil")],
+[InlineKeyboardButton("👤 Mon Profil & Parrainage", callback_data="profil")],
+[InlineKeyboardButton("ℹ️ Informations", callback_data="infos")],
+[InlineKeyboardButton("❓ Aide & Support", callback_data="aide")]
+]
+
+reply_markup = InlineKeyboardMarkup(keyboard)
+await update.message.reply_text(WELCOME_TEXT, reply_markup=reply_markup)
+
+if __name__ == '__main__':
+# Récupère le token de façon sécurisée via les variables d'environnement de votre hébergeur
+TOKEN = os.getenv("8654399942:AAFzASPJY89aV4VoLCQqON9TyIH248VNL9s")
+
+app = Application.builder().token(TOKEN).build()
+app.add_handler(CommandHandler("start", start))
+
+print("Bot en ligne...")
+app.run_polling()
